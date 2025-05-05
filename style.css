@@ -1,0 +1,473 @@
+@import url('https://fonts.googleapis.com/css2?family=Inspiration&family=Overpass+Mono:wght@300..700&family=Overpass:ital,wght@0,100..900;1,100..900&family=Rubik+80s+Fade&family=Rubik+Glitch+Pop&family=Rubik+Pixels&display=swap');
+@import url("https://use.typekit.net/kyh2zsd.css");
+@font-face {
+  font-family: 'ft88_school';
+  src: url('assets/FT88-School.otf') format('opentype'); /* Use url() and the correct format */
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: rgb(124, 124, 124);
+}
+#background-container {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+}
+
+.rubik-pixels-regular {
+    font-family: "Rubik Pixels", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .inspiration-regular {
+    font-family: "Inspiration", cursive;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .rubik-glitch-pop-regular {
+    font-family: "Rubik Glitch Pop", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .rubik-80s-fade-regular {
+    font-family: "Rubik 80s Fade", system-ui;
+    font-weight: 400;
+    font-style: normal;
+  }
+  .overpass-choose_pin {
+    font-family: "Overpass", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 300;
+    font-style: normal;
+  }
+
+  h1 {
+    margin: 1.5rem;
+    font-size: 2.5rem;
+    z-index: 1;
+    font-family: 'ft88_school', sans-serif;
+    text-align: center;
+    color: #00EF1C;
+  }
+  /*body text*/
+  p1 {
+    font-family: "proforma", serif;
+    font-weight: 400;
+    font-style: normal;
+    z-index: 1;
+    font-size:15px;
+  }
+   /*name text*/
+   p2 {
+    font-family: "Inspiration", cursive;
+    font-weight: 400;
+    font-style: normal;
+    z-index: 1;
+    font-size:20px;
+  }
+   /*bottom text*/
+   p3 {
+    font-family: "proforma", serif;
+    font-weight: 400;
+    font-style: normal;
+    z-index: 1;
+    font-size:12px;
+  }
+  p{
+    font-family: "Overpass", sans-serif;
+  }
+  #title{
+    position: fixed; /* Fix it to the viewport */
+    bottom: 20px; /* Adjust the distance from the bottom */
+    left: 20px; /* Adjust the distance from the right */
+    z-index: 1;
+  }
+  #title img{
+    width: 250px;
+    height: auto;
+  }
+
+ body {
+    margin: 0;
+    font-family: 'Arial', sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+ 
+  #map {
+    position: fixed; /* Or 'absolute' depending on your layout */
+    top: 0;
+    left: 0;
+    width: 90%;
+    height: 80%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 0; /* Ensure it's on top of other elements */
+  }
+
+  /* Style the main zoom control container */
+  #map .leaflet-control-zoom {
+    border: 1px solid #8F9DAA; /* Example border */
+    background-color: white; /* Default background */
+    border-radius: 0; /* Rounded corners for the container */
+  }
+    /* Style for the zoom control container */
+  .leaflet-control-zoom {
+    position: absolute !important;
+    top: 350px;
+    right: 10px;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    z-index: 1000;
+  }
+  
+  #map .leaflet-control-zoom a.leaflet-control-zoom-in,
+  #map .leaflet-control-zoom a.leaflet-control-zoom-out{
+  display: block; /* Stack them vertically */
+  width: 30px; /* Set a fixed width */
+  height: 30px; /* Set a fixed height */
+  line-height: 30px; /* Vertically center the text */
+  font-size: 20px; /* Adjust the size of the '+' and '-' */
+  color: #ffffff; /* Set the color of the '+' and '-' */
+  text-align: center; /* Center the '+' and '-' horizontally */
+  text-decoration: none; /* Remove default link underline */
+  background-color: #D4DADC; /* Default button background */
+}
+  
+  /* Style the top button (zoom in) to have rounded top corners */
+  #map .leaflet-control-zoom .leaflet-control-zoom-in {
+    border-radius:0;
+  }
+  
+  /* Style the bottom button (zoom out) to have rounded bottom corners and no bottom border */
+  #map .leaflet-control-zoom .leaflet-control-zoom-out {
+    border-radius:0;
+  }
+  
+  /* Style the buttons on hover */
+  #map .leaflet-control-zoom a:hover {
+    background-color: #00F8EC;
+  }
+
+  /* add pin */
+  #add{
+    height: 45px;
+    width: 45px;
+    background-color: #ffffff;
+    /* border: none; */
+    border: .5px solid #000000;
+    cursor: pointer;
+    font-family: 'ft88_school', sans-serif;
+    font-size: 3rem;
+    text-align: center;
+    line-height: 3.35rem;
+    color: #000000;
+    top: 1rem;
+    right: 1rem;
+    position:fixed;
+  }
+  .pin_overlay{
+    display: none;
+    border: .5px solid;
+    z-index: 1000;
+    height: auto;
+    max-height: 90vh;
+    width: 550px;
+    top: 50%; 
+    left: 50%;  
+    transform: translate(-50%, -50%);
+    position: fixed; 
+    overflow: auto;
+    cursor: move;
+    
+  }
+  .action_container{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between; /* Push elements to the edges */
+    align-items: flex-start; /* Align items to the start (top) */
+  }
+  .pin_options_menu {
+    display: flex;
+    flex-direction: row;
+}
+  .first_column{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .second_column{
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .choose_pin{
+    height: 25px;
+    width: 250px;
+    border: none;
+    font-family: "Overpass", sans-serif;
+    border: .5px solid;
+  }
+
+  .pin1, .pin1_filter{
+    background-color: #00EF1C;
+  }
+  .pin2, .pin2_filter{
+    background-color: #00F8EC;
+  }
+  .pin3, .pin3_filter{
+    background-color: #ff9f04;
+  }
+  .pin4, .pin4_filter{
+    background-color: #FFC1F6;
+  }
+  .close_pin_overlay{
+    height: 50px;
+    width: 50px;
+    /* border: none; */
+    border: .5px solid #000000;
+    background-color: #ffffff;
+    font-family: 'ft88_school', sans-serif;
+    font-weight: 100;
+    font-size: 2rem;
+    text-align: center;
+    line-height: 3.5rem;
+  }
+  .comment_container{
+    border: .5px solid;
+    flex-grow: 1; 
+    text-align: center;
+    padding: 20px;
+  }
+  .prompt{
+    display: block;
+    margin: 5px;
+  }
+  .name{
+    margin: 5px;
+  }
+  .residence{
+    margin: 5px;
+  }
+
+.pin_1 input[type="text"],
+.pin_2 input[type="text"],
+.pin_3 input[type="text"],
+.pin_4 input[type="text"] {
+  width: 100%;
+  padding: 8px 12px;
+  margin: 5px 0;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-family: "proforma", serif;
+  outline: none;
+}
+.q1:focus, 
+input[type=text]:focus {
+  background-color: rgba(255, 255, 255, 0.378);
+}
+
+.q1{
+  width: 100%;
+  padding: 8px 12px;
+  border: none;
+  border-radius: 0;
+  box-sizing: border-box;
+  background-color: rgba(255, 255, 255, 0.1);
+  font-family: "proforma", serif;
+  outline: none;
+  font-size:15px;
+  height: 50px;
+  resize: none;
+}
+
+
+
+.q2{
+  font-weight: 400;
+  font-style: normal;
+  z-index: 1;
+  font-size:12px;
+}
+
+.q3{
+    font-weight: 400;
+    font-style: normal;
+    z-index: 1;
+    font-size:12px;
+}
+.send_comment{
+  border: .5px solid #000000;
+  height: 25px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.378);
+  /* border: none; */
+  margin-top: auto;
+  position: relative;
+}
+/* .send_comment:active {
+  background-color: rgba(255, 255, 255, 0.5);
+} */
+.send_comment:disabled {
+  border: .5px solid #000000;
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+.send_comment:not(:disabled):active {
+  border: .5px solid #000000;
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.my_buttons{
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  justify-content: center;
+  z-index: 1000;
+  position:fixed;
+  bottom: 1.5rem;
+  right: 20rem;
+  /* gap: 1rem; */
+}
+.button_filter{
+  height: 25px;
+  width: 150px;
+  border: none;
+  cursor: pointer;
+}
+
+.leaflet-pixel-icon {
+  border: none;
+}
+
+.switch {
+  display: inline-block;
+  width: 100px;
+  height: 25px;
+  z-index: 1000;
+  position: absolute;
+  right: 1.5rem;
+  bottom: 1.5rem;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.change {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #00c3fe;
+  transition: 0.4s;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 0.5px solid #000000;
+  font: 500 10pt "Overpass", sans-serif;
+  text-transform: uppercase;
+  color: #471C00;
+  overflow: hidden;
+}
+
+.change:before {
+  content: attr(data-text);
+  position: absolute;
+  height: 25px;
+  width: 50px;
+  left: 0px;
+  top: 0px;
+  background-color: white;
+  color: #471C00;
+  font: 600 10pt "Overpass", sans-serif;
+  text-align: center;
+  line-height: 25px;
+  transition: 0.4s;
+  z-index: 2;
+}
+
+.change:hover:before {
+  color: #3896EF;
+}
+
+input:checked + .change {
+  background-color: #FFE500;
+}
+
+input:checked + .change:before {
+  transform: translateX(49px); /* Half of 100px */
+}
+
+.background_location{
+  z-index: 2000;
+  position:fixed;
+  bottom: 1.5rem;
+  left: 1.5rem;
+  height: 25px;
+  width: 100px;
+  /* margin: 5px; */
+  background-color: white;
+  border: 0.5px solid #000000;
+  text-align: center;
+}
+.about{  
+  z-index: 2000;
+  position:fixed;
+  top: 1.5rem;
+  left: 1.5rem;
+  height: 25px;
+  width: 100px;
+  margin: 5px;
+  background-color: white;
+  border: 0.5px solid #000000;
+  text-align: center;
+  font-family: 'ft88_school', sans-serif;
+  line-height: 27px;
+}
+.about_overlay{
+  top: 3.5rem; 
+  left: 1.5rem;  
+  display: none;
+  border: .5px solid;
+  z-index: 2001;
+  height: auto;
+  max-height: 90vh;
+  width: 350px;
+  position: fixed; 
+  overflow: auto;
+  background-color: rgb(255, 255, 255);
+}
+.image-upload-button {
+  display: inline-block;
+  font-family: "Overpass", sans-serif;
+  border: .5px solid #000000;
+  height: 25px;
+  width: 100%;
+  background-color: rgba(255, 255, 255, 0.378);
+  /* border: none; */
+  margin-top: auto;
+  position: relative;
+  text-align: center;
+  line-height: 26px;
+}
+
+
+ 
+
+
+ 

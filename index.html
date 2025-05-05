@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Place Attachment</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+</head>
+<body  id="background-container">
+<div id="map"></div>
+<h1>PLACE ATTACHMENT</h1>
+<button class="about">ABOUT</button>
+  <aside class="about_overlay">
+    <p>This website is</p>
+  </aside>
+  <button class="add_pin" id="add">+</button>
+<div class="my_buttons">
+  <!-- <button class="add_pin" id="add">+</button> -->
+  <button class="button_filter pin1_filter"></button>
+  <button class="button_filter pin2_filter"></button>
+  <button class="button_filter pin3_filter"></button>
+  <button class="button_filter pin4_filter"></button>
+</div>
+<aside class="pin_overlay">
+  <div class="action_container">
+    <div class="pin_options_menu">
+      <div class="first_column">
+          <button class="choose_pin pin1">Place of Belonging</button>
+          <button class="choose_pin pin2">Moments of Rootedness</button>
+      </div>
+      <div class="second_column">
+          <button class="choose_pin pin3">Sensory Anchor</button>
+          <button class="choose_pin pin4">Memory Footprints</button>
+    </div>
+    <button class="close_pin_overlay">✕</button>
+  </div>
+  </div>
+  <div class="comment_container">
+    <div class="pin_1">
+      <p>
+        <span class="prompt">Where do you feel the strongest sense of place attachment?</span>
+        <textarea class="q1"></textarea>
+        <br> 
+        <span class="name">Name</span>
+        <input type="text" class="q2" placeholder="can be anonymous">
+        <br> 
+        <span class="residence">Residence</span>
+        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+      </p>
+    </div>
+    <div class="pin_2">
+      <p>
+        <span class="prompt">Describe places where you felt a sense of being rooted or “at home”</span>
+        <textarea class="q1"></textarea>
+        <br> 
+        <span class="name">Name</span>
+        <input type="text" class="q2" placeholder="can be anonymous">
+        <br> 
+        <span class="residence">Residence</span>
+        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+      </p>
+    </div>
+    <div class="pin_3">
+      <p>
+        <span class="prompt">Describe a sensory experience that strongly connects you to that place and evokes feelings of belonging</span>
+        <textarea class="q1"></textarea>
+        <br> 
+        <span class="name">Name</span>
+        <input type="text" class="q2" placeholder="can be anonymous">
+        <br> 
+        <span class="residence">Residence</span>
+        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+      </p>
+    </div>
+    <div class="pin_4">
+      <p>
+        <span class="prompt">What is a memory that has significantly shaped your sense of place?</span>
+        <textarea class="q1"></textarea>
+        <br> 
+        <span class="name">Name</span>
+        <input type="text" class="q2" placeholder="can be anonymous">
+        <br> 
+        <span class="residence">Residence</span>
+        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+      </p>
+    </div>
+  </div>
+  <label for="imageInput" class="image-upload-button">Add an Image</label>
+  <input type="file" id="imageInput" accept="image/*" style="display: none;">
+  <button class="send_comment">Send</button>
+</aside>
+
+<div class="background_location"></div>
+<label class="switch">
+  <input type="checkbox" id="toggle-map" checked>
+  <span class="change" data-text="Hide Map"></span>
+</label>
+
+
+
+<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<script src="script.js"></script>
+</body>
+</html>
