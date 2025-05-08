@@ -15,6 +15,9 @@ html, body {
   background-position: center;
   background-repeat: no-repeat;
   transition: background-image 1s ease-in-out;
+  height: 100vh; /* Makes the height equal to the viewport height */
+  width: 100%;   /* Ensures it spans the full width */
+  position: relative; /* Make sure it's positioned properly */
 }
 
 .rubik-pixels-regular {
@@ -229,6 +232,11 @@ html, body {
   .pin4, .pin4_filter{
     background-color: #FFC1F6;
   }
+  .button_filter.pinAll_filter{
+    background-color: #ffdd00;
+    width: 60px;
+  }
+  
   .close_pin_overlay{
     height: 50px;
     width: 50px;
@@ -291,8 +299,6 @@ input[type=text]:focus {
   resize: none;
 }
 
-
-
 .q2{
   font-weight: 400;
   font-style: normal;
@@ -340,10 +346,13 @@ input[type=text]:focus {
   /* gap: 1rem; */
 }
 .button_filter{
+  border: solid #000000;
+  border-width: 1px .5px;
   height: 25px;
-  width: 150px;
-  border: none;
+  width: 200px;
+  /* border: none; */
   cursor: pointer;
+  font-family: "Overpass", sans-serif;
 }
 
 .leaflet-pixel-icon {
@@ -448,6 +457,8 @@ input:checked + .change:before {
   height: auto;
   max-height: 90vh;
   width: 350px;
+  box-sizing: border-box; 
+  padding: 15px;
   position: fixed; 
   overflow: auto;
   background-color: rgb(255, 255, 255);
@@ -465,8 +476,47 @@ input:checked + .change:before {
   text-align: center;
   line-height: 26px;
 }
+.popup-content{
+  box-sizing: border-box; 
+  padding: 25px 36px 10px 34px;
+  color: #390000;
+  text-align: center;
+  /* width: 380px !important; */
+}
+.leaflet-popup-content-wrapper {
+  position: relative;
+  width: 380px !important;
+  background: none !important;
+  box-shadow: none !important;
+  border: none !important;
+}
 
-
+.leaflet-popup-tip {
+  display: none !important;
+}
+.leaflet-popup-content p {
+  /* margin: 0 !important; */
+  font-family: "proforma", serif;
+  box-sizing: border-box;
+}
+.leaflet-popup-content {
+  width: 380px !important;
+  box-sizing: border-box; 
+  margin: 0 !important;
+}
+.leaflet-popup {
+  position: relative;
+}
+.leaflet-popup.leaflet-zoom-animated{
+  width: 380px !important;
+  left: -185px !important;
+}
+.leaflet-container a.leaflet-popup-close-button{
+  /* position: absolute;
+  border: none; */
+  color: #390000af !important;
+  /* background: transparent; */
+}
  
 
 

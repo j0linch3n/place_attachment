@@ -2,9 +2,10 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const multer = require('multer');
-const cors = require('cors');  // Import cors here
-const Pin = require('./pins'); // Assuming you have a Pin model in pins.js
-require('dotenv').config(); // Load environment variables from .env file
+const cors = require('cors');
+const path = require('path'); // Needed to handle file paths
+const Pin = require('./pins');
+require('dotenv').config();
 
 // Initialize express app
 const app = express();
@@ -16,60 +17,66 @@ app.use(cors({
   allowedHeaders: ['Content-Type']
 }));
 
-// Middleware to parse incoming JSON data
-app.use(express.json()); // This allows your API to accept JSON requests
-app.use(express.urlencoded({ extended: true })); // This allows your API to accept form data
+// Middleware to parse form data and JSON
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Set up multer for file upload (if needed)
-const upload = multer({ dest: 'uploads/' }); // Temporary file storage
+// Multer storage config — save images with original extension
+const storage = multer.diskStorage({
+  destination: function (req, file, cb) {
+    cb(null, 'uploads/'); // Folder to store uploaded images
+  },
+  filename: function (req, file, cb) {
+    const ext = path.extname(file.originalname);
+    const uniqueName = Date.now() + '-' + Math.round(Math.random() * 1E9) + ext;
+    cb(null, uniqueName);
+  }
+});
+const upload = multer({ storage });
 
-// Use the MONGO_URI from the .env file to connect to MongoDB
-const MONGO_URI = process.env.MONGO_URI; 
+// Serve uploaded images statically at /uploads
+app.use('/uploads', express.static('uploads'));
 
-// Connect to MongoDB using Mongoose
+// MongoDB connection
+const MONGO_URI = process.env.MONGO_URI;
 mongoose.connect(MONGO_URI)
   .then(() => console.log('MongoDB connected successfully!'))
-  .catch((err) => console.log('MongoDB connection error:', err));
+  .catch(err => console.log('MongoDB connection error:', err));
 
-// POST route to submit a new pin (latitude, longitude, message, image, etc.)
+// POST route to submit a new pin
 app.post('/pins', upload.single('image'), (req, res) => {
-  // Extracting all necessary data from the request body
-  const { latitude, longitude, message, name, residence } = req.body;
+  const { latitude, longitude, message, name, residence,  iconColor } = req.body;
 
-  // Validate required fields
   if (!latitude || !longitude || !message) {
     return res.status(400).json({ error: 'Missing required fields: latitude, longitude, and message are required.' });
   }
 
-  // Handle image upload (if any)
-  const image = req.file ? req.file.path : null;
+  // Save relative image path (e.g., /uploads/filename.jpg)
+  const image = req.file ? `/uploads/${req.file.filename}` : null;
 
-  // Create a new pin and save to the database
   const newPin = new Pin({
     latitude,
     longitude,
     message,
     name,
     residence,
+    iconColor,
     image
   });
 
   newPin.save()
-    .then(() => res.status(201).json({ message: 'Pin created successfully!' }))
+    .then(savedPin => res.status(201).json(savedPin))
     .catch(err => res.status(400).json({ error: 'Error creating pin', details: err }));
 });
 
 // GET route to fetch all pins
 app.get('/pins', (req, res) => {
   Pin.find()
-    .then(pins => res.status(200).json(pins)) // Send back all pins as JSON
+    .then(pins => res.status(200).json(pins))
     .catch(err => res.status(400).json({ error: 'Error retrieving pins', details: err }));
 });
 
-// Serve static files (e.g., images, CSS, JS) from the public folder
-app.use(express.static('public')); // Assuming you have a public folder
-
-// Start the server
+// Start server
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);

@@ -7,6 +7,7 @@ const pinSchema = new mongoose.Schema({
   name: String,
   residence: String,
   image: String,
+  iconColor: String // add this line
 });
 
 const Pin = mongoose.model('Pin', pinSchema);
