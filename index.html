@@ -3,104 +3,125 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Place Attachment</title>
+  <title>Places We Carry</title>
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
+  <!-- <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/> -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="icon" href="assets/FAVICON.png" sizes="32x32" type="image/png">
 </head>
 <body  id="background-container">
 <div id="map"></div>
-<h1>PLACE ATTACHMENT</h1>
+<h1 onclick="location.reload()">PLACES WE CARRY</h1>
+<div id="background-gradient-overlay"></div>
+<div id="background-gradient-overlay-2"></div>
+<div id="popup-outside-map" class="popup-outside-content" style="display: none;"></div>
 <button class="about">ABOUT</button>
   <aside class="about_overlay">
-    <p>This website is</p>
+    <p><i>Places We Carry</i> is a living tapestry of belonging — a map woven from the memories, 
+      feelings, and sensations we carry with us from the places that have held us. <br> 
+      This space invites you to share the corners of the world that feel like home, the 
+      moments that rooted you, the sensory experiences that linger, and the memories you 
+      hold dear. <br> Every pin is a soft imprint, a part of your journey laid beside others 
+      in this collective archive of how we carry home with us, wherever we go.
+    </p>
+    <p3>This website is developed and designed by Jolin Chen as part of her degree project, <i>Carrying Home</i>.</p3>
+    <p3><hr>To all who entrusted your memories, sentiments, and pictures through the form, thank you ♡.
+      Your heartful participation has helped bring the <i>Places We Carry</i> tapestry to life!</p3>
   </aside>
   <button class="add_pin" id="add">+</button>
 <div class="my_buttons">
-  <!-- <button class="add_pin" id="add">+</button> -->
-  <button class="button_filter pinAll_filter">All</button>
-  <button class="button_filter pin1_filter">Place of Belonging</button>
-  <button class="button_filter pin2_filter">Moments of Rootedness</button>
-  <button class="button_filter pin3_filter">Sensory Anchor</button>
-  <button class="button_filter pin4_filter">Memory Footprints</button>
+  <button class="button_filter pinAll_filter" data-color="#ffdd00" data-filter="all">All</button>
+  <button class="button_filter pin1_filter" data-color="#00EF1C">Place of Belonging</button>
+  <button class="button_filter pin2_filter" data-color="#00F8EC">Moments of Rootedness</button>
+  <button class="button_filter pin3_filter" data-color="#ff9f04">Sensory Anchor</button>
+  <button class="button_filter pin4_filter" data-color="#FFC1F6">Memory Footprints</button>
 </div>
 <aside class="pin_overlay">
   <div class="action_container">
     <div class="pin_options_menu">
-      <div class="first_column">
-          <button class="choose_pin pin1">Place of Belonging</button>
-          <button class="choose_pin pin2">Moments of Rootedness</button>
+      <div class="first_row">
+        <div id="overlay_header">Pin the spot on the map where your sense of place lives!</div>
+        <button class="close_pin_overlay" style="color: #390000;">✕</button>
       </div>
-      <div class="second_column">
-          <button class="choose_pin pin3">Sensory Anchor</button>
-          <button class="choose_pin pin4">Memory Footprints</button>
+     
+      <div class="second_row">
+          <button class="choose_pin pin1" data-color="#00EF1C">Place of Belonging</button>
+          <button class="choose_pin pin2" data-color="#00F8EC">Moments of Rootedness</button>
+          <button class="choose_pin pin3" data-color="#ff9f04">Sensory Anchor</button>
+          <button class="choose_pin pin4" data-color="#FFC1F6">Memory Footprints</button>
     </div>
-    <button class="close_pin_overlay">✕</button>
   </div>
   </div>
   <div class="comment_container">
     <div class="pin_1">
-      <p>
-        <span class="prompt">Where do you feel the strongest sense of place attachment?</span>
-        <textarea class="q1"></textarea>
-        <br> 
-        <span class="name">Name</span>
-        <input type="text" class="q2" placeholder="can be anonymous">
-        <br> 
-        <span class="residence">Residence</span>
-        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
-      </p>
+        <p>
+            <span class="prompt">Where do you feel the strongest sense of place attachment?</span>
+            <textarea class="q1"></textarea>
+            <br>
+            <span class="name">Name</span>
+            <input type="text" class="q2" placeholder="can be anonymous">
+            <br>
+            <span class="residence">Residence</span>
+            <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+            <label for="imageInputPin1" class="image-upload-button">Add an Image</label>
+            <input type="file" id="imageInputPin1" class="imageInput" accept="image/*" style="display: none;">
+        </p>
     </div>
     <div class="pin_2">
-      <p>
-        <span class="prompt">Describe places where you felt a sense of being rooted or “at home”</span>
-        <textarea class="q1"></textarea>
-        <br> 
-        <span class="name">Name</span>
-        <input type="text" class="q2" placeholder="can be anonymous">
-        <br> 
-        <span class="residence">Residence</span>
-        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
-      </p>
+        <p>
+            <span class="prompt">Describe places where you felt a sense of being rooted or “at home”</span>
+            <textarea class="q1"></textarea>
+            <br>
+            <span class="name">Name</span>
+            <input type="text" class="q2" placeholder="can be anonymous">
+            <br>
+            <span class="residence">Residence</span>
+            <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+            <label for="imageInputPin2" class="image-upload-button">Add an Image</label>
+            <input type="file" id="imageInputPin2" class="imageInput" accept="image/*" style="display: none;">
+        </p>
     </div>
     <div class="pin_3">
-      <p>
-        <span class="prompt">Describe a sensory experience that strongly connects you to that place and evokes feelings of belonging</span>
-        <textarea class="q1"></textarea>
-        <br> 
-        <span class="name">Name</span>
-        <input type="text" class="q2" placeholder="can be anonymous">
-        <br> 
-        <span class="residence">Residence</span>
-        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
-      </p>
+        <p>
+            <span class="prompt">Describe a sensory experience that strongly connects you to that place and evokes feelings of belonging</span>
+            <textarea class="q1"></textarea>
+            <br>
+            <span class="name">Name</span>
+            <input type="text" class="q2" placeholder="can be anonymous">
+            <br>
+            <span class="residence">Residence</span>
+            <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+            <label for="imageInputPin3" class="image-upload-button">Add an Image</label>
+            <input type="file" id="imageInputPin3" class="imageInput" accept="image/*" style="display: none;">
+        </p>
     </div>
     <div class="pin_4">
-      <p>
-        <span class="prompt">What is a memory that has significantly shaped your sense of place?</span>
-        <textarea class="q1"></textarea>
-        <br> 
-        <span class="name">Name</span>
-        <input type="text" class="q2" placeholder="can be anonymous">
-        <br> 
-        <span class="residence">Residence</span>
-        <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
-      </p>
+        <p>
+            <span class="prompt">What is a memory that has significantly shaped your sense of place?</span>
+            <textarea class="q1"></textarea>
+            <br>
+            <span class="name">Name</span>
+            <input type="text" class="q2" placeholder="can be anonymous">
+            <br>
+            <span class="residence">Residence</span>
+            <input type="text" class="q3" placeholder="I have lived in Providence for 4 years">
+            <label for="imageInputPin4" class="image-upload-button">Add an Image</label>
+            <input type="file" id="imageInputPin4" class="imageInput" accept="image/*" style="display: none;">
+        </p>
     </div>
-  </div>
-  <label for="imageInput" class="image-upload-button">Add an Image</label>
-  <input type="file" id="imageInput" accept="image/*" style="display: none;">
-  <button class="send_comment">Send</button>
+    <p id="statement">To build this living archive of shared experiences on our website, 
+      your heartfelt responses and pictures will be displayed with care, allowing others to 
+      connect with the places we carry. Rest assured, your contributions will be treated 
+      respectfully within our community.</p>
+    <button class="send_comment">Send</button>
+</div>
 </aside>
 
-<div class="background_location"></div>
-<label class="switch">
-  <input type="checkbox" id="toggle-map" checked>
-  <span class="change" data-text="Hide Map"></span>
-</label>
+<button class="background_location_image">SHUFFLE</button>
+<button id="toggle-map-btn" class="toggle-map-button">Hide Map</button>
 
-
-
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+<!-- <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script> -->
 <script src="script.js"></script>
 </body>
 </html>
