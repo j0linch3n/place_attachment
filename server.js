@@ -10,12 +10,30 @@ require('dotenv').config();
 // Initialize express app
 const app = express();
 
-// Use CORS middleware
+const allowedOrigins = [
+  'http://127.0.0.1:5500',
+  'https://j0linch3n.github.io'
+];
 app.use(cors({
-  origin: 'http://127.0.0.1:5500',
+  origin: function(origin, callback) {
+    // allow requests with no origin like mobile apps, curl, Postman, etc.
+    if (!origin) return callback(null, true);
+    if (allowedOrigins.indexOf(origin) !== -1) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   methods: ['GET', 'POST'],
   allowedHeaders: ['Content-Type']
 }));
+
+// // Use CORS middleware
+// app.use(cors({
+//   origin: 'http://127.0.0.1:5500, https://j0linch3n.github.io',
+//   methods: ['GET', 'POST'],
+//   allowedHeaders: ['Content-Type']
+// }));
 
 // Middleware to parse form data and JSON
 app.use(express.json());

@@ -149,8 +149,8 @@ html, body {
     /* Style for the zoom control container */
   .leaflet-control-zoom {
     position: absolute !important;
-    /* top: 390px; */
-    top:300px;
+    top: 354px;
+    /* top:300px; */
     /* top: 50%; */
     right: 10px;
     /* transform: translate(0, -50%); */
@@ -267,8 +267,8 @@ html, body {
   }
   
   .close_pin_overlay{
-    height: 50px;
-    width: 50px;
+    height: 51px;
+    width: 51px;
     /* border: none; */
     border: .5px solid #390000;
     background-color: #ffffff;

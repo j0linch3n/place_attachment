@@ -1,4 +1,11 @@
-const map = L.map('map', {
+const API_URL = ['localhost', '127.0.0.1'].includes(location.hostname)
+  ? 'http://localhost:3000'
+  : 'https://place-attachment.onrender.com';
+
+  console.log('Using API URL:', API_URL);
+  
+  console.log('Hostname:', location.hostname);
+  const map = L.map('map', {
   worldCopyJump: false,
   maxBoundsViscosity: 1.0,
   zoomControl: false,
@@ -541,7 +548,7 @@ document.addEventListener('DOMContentLoaded', function () {
           formData.append('image', selectedImage);
         }
 
-        const response = await fetch('http://localhost:3000/pins', {
+        const response = await fetch(`${API_URL}/pins`, {
           method: 'POST',
           body: formData
         });
@@ -731,7 +738,7 @@ document.querySelectorAll('.choose_pin').forEach(button => {
 async function loadPins() {
 
   try {
-    const response = await fetch('http://localhost:3000/pins');
+    const response = await fetch(`${API_URL}/pins`);
     const pins = await response.json();
 
     console.log('Fetched pins:', pins);
