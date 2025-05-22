@@ -88,10 +88,18 @@ app.post('/pins', upload.single('image'), (req, res) => {
 });
 
 // GET route to fetch all pins
+// app.get('/pins', (req, res) => {
+//   Pin.find()
+//     .then(pins => res.status(200).json(pins))
+//     .catch(err => res.status(400).json({ error: 'Error retrieving pins', details: err }));
+// });
 app.get('/pins', (req, res) => {
   Pin.find()
     .then(pins => res.status(200).json(pins))
-    .catch(err => res.status(400).json({ error: 'Error retrieving pins', details: err }));
+    .catch(err => {
+      console.error('Error retrieving pins:', err); // log the actual error
+      res.status(400).json({ error: 'Error retrieving pins', details: err });
+    });
 });
 
 // Start server
